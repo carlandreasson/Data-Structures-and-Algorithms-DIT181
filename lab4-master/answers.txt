@@ -1,0 +1,179 @@
+/******************************************************************************
+** DIT181  Datastrukturer och algoritmer, LP3 2021
+** Lab 4: Path finder
+*******************************************************************************/
+ 
+Group members:
+- Carl Andreasson
+- Adam Frison
+- Felix Mertala
+
+/******************************************************************************
+** 1. List the minimal cost, shortest path, and number of loop iterations
+**    for each of the following invocations.
+******************************************************************************/
+
+> java RunPathFinder ucs AdjacencyGraph graphs/AdjacencyGraph/citygraph-SE.txt Lund Kiruna
+
+loop iterations: 5427
+minimal cost:    1826
+shortest path:   Lund -> Löddeköpinge -> Hjärnarp -> Åled -> Oskarström -> ... -> Storuman -> Sorsele -> Jokkmokk -> Gällivare -> Kiruna
+
+> java RunPathFinder ucs NPuzzle 3 "/HFG/BED/C_A/" "/ABC/DEF/GH_/"
+
+loop iterations: 483573
+minimal cost:    31
+shortest path:  /HFG/BED/C_A/ -> /HFG/BED/CA_/ -> /HFG/BE_/CAD/ -> /HFG/B_E/CAD/ -> /H_G/BFE/CAD/ -> ... -> /AC_/DBE/GHF/ -> /A_C/DBE/GHF/ -> /ABC/D_E/GHF/ -> /ABC/DE_/GHF/ -> /ABC/DEF/GH_/
+
+> java RunPathFinder astar NPuzzle 3 "/HFG/BED/C_A/" "/ABC/DEF/GH_/"
+
+loop iterations: 34919
+minimal cost:   31.0
+
+> java RunPathFinder ucs NPuzzle 3 "/HGF/BED/C_A/" "/ABC/DEF/GH_/"
+
+loop iterations: 483841
+minimal cost:    [...]
+shortest path: No path found from /HGF/BED/C_A/ to /ABC/DEF/GH_/
+
+> java RunPathFinder ucs GridGraph graphs/GridGraph/AR0011SR.map "23:161" "130:211"
+
+loop iterations: 159327
+minimal cost:    366.4
+shortest path:   23:161 -> 23:160 -> 23:159 -> 23:158 -> 23:157 -> ... -> 132:207 -> 131:208 -> 131:209 -> 130:210 -> 130:211
+
+> java RunPathFinder astar GridGraph graphs/GridGraph/AR0011SR.map "23:161" "130:211"
+
+loop iterations: 125126
+minimal cost:  405.35
+
+> java RunPathFinder ucs WordLadder graphs/WordLadder/words-saldo.txt syster broder
+
+loop iterations: 73590
+minimal cost:    11
+shortest path:   syster -> sylter -> salter -> balter -> balder -> ... -> bauden -> bruden -> bröden -> bröder -> broder
+
+> java RunPathFinder astar WordLadder graphs/WordLadder/words-saldo.txt syster broder
+
+loop iterations: 13490
+minimal cost:  11
+
+/******************************************************************************
+** 2. For each of the three classes GridGraph, WordLadder, and NPuzzle,
+**    what is the approximate improvement in the number of loop iterations
+**    by running A* instead of UCS?
+**    Try a number of different examples per class.
+******************************************************************************/
+
+GridGraph: A* seems to take about the same amount of iterations
+
+WordLadder: A* has about 1/6 of the iterations.
+
+NPuzzle:    A* has about 1/10 of the iterations.
+
+/******************************************************************************
+** 3. For which of the three classes GridGraph, WordLadder, and NPuzzle,
+**    did the heuristics .guessCost() have the most impact?
+**    Why do you think this is the case?
+******************************************************************************/
+NPuzzle because in NPuzzle every node is more connected than in the others so ucs would do more unnecessary comparisons.
+
+
+
+/******************************************************************************
+** 4. Give pseudo-code of the following methods that you implemented.
+**    Try to abstract over details which are relevant only for Java.
+**    Make it easy to follow for a human.
+******************************************************************************/
+
+WordLadder.outgoingEdges(String w):
+	LinkedList list
+	for(integer z < w.length)
+		for(char c in charset)
+			String compare = w.setCharAt(z,c)
+			if(dictionary contains compare && w != compare)
+				list.add(w, compare)
+
+	return list;
+
+WordLadder.guessCost(String w, String u)
+        int diff = 0;
+           char[ ] a = w.toCharArray()
+             char[ ] b = u.toCharArray()
+               for (int i = 0; i < a.length; i++) 
+                if(a[i] != b[i])
+
+   return diff;
+
+GridGraph.guessCost(Coord p, Coord q):
+
+int x = Math.abs(p.x-q.x)
+int y = Math.abs(p.y-q.y)
+return Math.sqrt((y*y)+(x*x))
+
+/******************************************************************************
+** 5. Give pseudo-code of the method .searchAstar() in PathFinder.
+******************************************************************************/
+
+PathFinder.searchAstar(Node start, Node goal):
+    HashSet<Node> visitedSet = new HashSet()
+    pqueue = new PriorityQueue(comparing costToHere)
+    pqueue.add(new PQEntry for start)
+    while pqueue is not empty:
+       entry = pqueue.remove()
+       if(not visitedSet.contains(entry.node)) 
+           visitedSet.add(entry.node)
+        if entry.node == goal: 
+	SUCCESS return the path
+         for (DirectedEdge<Node> e : graph.outgoingEdges(entry.node)) 
+               double costToNext = entry.costToHere + e.weight() 
+               pqueue.add(new PQEntry(e.to(), costToNext, entry, costToNext+graph.guessCost(e.to(), goal)))
+   return new Result(false, start, goal, -1, null, iterations)
+        for edge in graph.outgoingEdges(entry.node):
+            costToNext = entry.costToHere + edge.weight
+            pqueue.add(new PQEntry for edge.to)
+    NO SOLUTION
+/******************************************************************************
+** 6. What are the main differences between your implementations 
+**    of .searchAstar() and .searchUCS()?
+******************************************************************************/
+
+The main difference is that astar considers F cost which is the sum of distance from starting node (G cost) and the estimated distance from end node (H cost). Astar therefore doesn't “move” in every direction like UCS, instead it “moves” towards the end node. This reduces the number of iterations the algorithm has to compute. 
+
+/******************************************************************************
+** Appendix: General information
+**
+** A. Approximately how many hours did you spend on the assignment?
+******************************************************************************/
+
+Felix Mertala:  6h
+Adam Frison:  6h
+Carl Andreasson:  6h
+
+/******************************************************************************
+** B. Are there any known bugs / limitations?
+******************************************************************************/
+
+[...]
+
+/******************************************************************************
+** C. Did you collaborate with any other students on this lab?
+**    If so, please write in what way you collaborated and with whom.
+**    Also include any resources (including the web) that you may
+**    may have used in creating your design.
+******************************************************************************/
+We did not collaborate with any other students in this lab.
+
+/******************************************************************************
+** D. Describe any serious problems you encountered.                    
+******************************************************************************/
+We did not encounter any serious problems.
+
+/******************************************************************************
+** E. List any other comments here.
+**    Feel free to provide any feedback on how much you learned 
+**    from doing the assignment, and whether you enjoyed it.                                             
+******************************************************************************/
+
+[...]
+
