@@ -1,0 +1,91 @@
+
+/******************************************************************************
+** DIT181  Datastrukturer och algoritmer, LP3 2021
+** Lab 2: Autocomplete
+*******************************************************************************/
+
+Group members:
+- [Felix Mertala]
+- [Adam Frison]
+- [Carl Andreasson]
+
+/******************************************************************************
+** 1. Describe how your firstIndexOf() method in RangeBinarySearch.java
+**    finds the first index of a key that equals the search key.
+******************************************************************************/
+
+First we use regular binary search to find any match of the search key, when we find it we set the integer result to the index of the match, then instead of returning the element we found we continue searching in the lower half of the array and if it matches the key we replace result with the current lowest match and continue searching in the lower part of the subarray and if it doesn’t match we continue to the right until the search space is exhausted and then we know we have the lower index.
+
+/******************************************************************************
+** 2. State and justify the asymptotic complexity of the operations
+**    in the Autocomplete class in the dictionary size n.
+**    For all Matches and numberOfMatches, the asymptotic complexity
+**    should also depend on the matching terms m.
+**
+**    You may take the number of comparisons as a proxy for the runtime.
+******************************************************************************/
+
+sortDictionary: O(n log(n))
+
+Java uses Tim sort which is a comparison based sorting algorithm which has the complexity O(n log(n)) therefore our complexity should be the same.
+
+allMatches: O(n log(n))
+
+As we’re looking for worst case complexity the highest order of growth operation is the sorting before we return the matches.
+
+numberOfMatches: O(log n)
+
+It basically does the same thing as allMatches except it doesn’t loop through or sort the matches afterwards instead it calculates the amount of matches which is of constant complexity.
+
+/******************************************************************************
+** Appendix: General information
+**
+** A. Approximately how many hours did you spend on the assignment?
+******************************************************************************/
+
+[Felix Mertala]:  [..6h..]
+[Adam Frison]:  [..6h..]
+[Carl Andreasson]:  [..6h..]
+
+/******************************************************************************
+** B. Are there any known bugs / limitations?
+******************************************************************************/
+
+One limitation is that the program only takes words and not phrases. For example for “a” it gives us:
+2994418400    and
+   703754300    as
+   509184100    at
+   370334200    all
+   322417800    are
+But if we want to run “hello a” it gives us zero matches.
+
+/******************************************************************************
+** C. Did you collaborate with any other students on this lab?
+**    If so, please write in what way you collaborated and with whom.
+**    Also include any resources (including the web) that you may
+**    may have used in creating your design.
+******************************************************************************/
+We did not collaborate with any students.
+For inspiration and guidance we used the coursebook and a website.
+
+Techie Delight “Find first or last occurrence of a given number in a sorted array”
+https://www.techiedelight.com/find-first-or-last-occurrence-of-a-given-number-sorted-array/
+2021-02-03
+
+Robert Sedgewick & Kevin Daniel Wayne, Algorithms Fourth Edition, Addison-Wesley, (2011)
+
+
+/******************************************************************************
+** D. Describe any serious problems you encountered.                    
+******************************************************************************/
+
+We had some trouble getting started, we thought the instructions felt somewhat vague.
+
+/******************************************************************************
+** E. List any other comments here.
+**    Feel free to provide any feedback on how much you learned 
+**    from doing the assignment, and whether you enjoyed it.                                             
+******************************************************************************/
+
+
+
