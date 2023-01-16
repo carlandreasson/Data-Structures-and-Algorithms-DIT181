@@ -1,0 +1,119 @@
+/******************************************************************************
+** DIT181  Datastrukturer och algoritmer, LP3 2021
+** Lab 3: Plagiarism detection
+*******************************************************************************/
+
+Group members:
+- [Felix Mertala]
+- [Adam Frison]
+- [Carl Andreasson]
+
+/******************************************************************************
+** Task: Running the slow program
+**
+** 1. What is the asymptotic complexity of findSimilarity?
+**    Answer in terms of N, the total number of 5-grams in the input files.
+**    Assume that the number of duplicate occurrences of 5-grams is
+**    a small constant - that is, there is not much plagiarised text.
+******************************************************************************/
+
+If we assume that there is just a small amount of plagiarism the complexity will be O(n2).
+
+/******************************************************************************
+** 2. How long did the program take on the 'small' and 'medium' directories?
+**    Is the ratio between the times what you would expect, given the complexity?
+**    Explain very briefly why.
+*******************************************************************************/
+
+For small the program took 1,99 seconds and for medium it took 334,11 seconds which is more than we expected, we assumed it would take about 200 seconds due to our estimated average complexity of n2 but it is probably due to the increased number of matches.
+
+/******************************************************************************
+** 3. How long do you predict the program would take to run on
+**    the 'huge' directory? Show your calculations.
+*******************************************************************************/
+
+(Small)
+(2*104)2 = 4*108 = 2 sec
+1 second = 2*108
+
+(Medium)
+(2*105)2 = 4*1010
+4*1010 / 2*108 = 200 sec
+...
+(Huge)
+(4*106)2/2*108 = 80,000
+80 000 sec = 22,22 hours
+
+/******************************************************************************
+** Task: Using binary search trees
+**
+** 4. Which of the BSTs in the program usually become unbalanced?
+**    Say very briefly how you deduced this.
+******************************************************************************/
+
+Files and similarity, as the height = size which indicates that the BST is unbalanced.
+
+/******************************************************************************
+** 5 (optional). Is there a simple way to stop these trees becoming unbalanced?
+******************************************************************************/
+
+Turning them into a balanced binary search tree for example a AVL or a red-black tree
+
+/******************************************************************************
+** Task: Using scapegoat trees
+**
+** 6. Now what is the total asymptotic complexities of running and buildIndex
+**    and findSimilarity? Include brief justification. Again, assume a total
+**    of N 5-grams, and a constant number of duplicate occurrences of 5-grams.
+******************************************************************************/
+
+buildIndex is of complexity O(n log n)
+findSimilarity is complexity O(n log n)
+and the complexity for running is O(n log n) given the assumptions.
+
+/******************************************************************************
+** 7 (optional). What if the total similarity score is an arbitrary number S,
+**               rather than a small constant?
+******************************************************************************/
+
+as the number of similarities would be a part of n we assume the complexity would be n2
+
+
+/******************************************************************************
+** Appendix: General information
+**
+** A. Approximately how many hours did you spend on the assignment?
+******************************************************************************/
+
+[..Carl Andreasson..]:  [..4..]
+[..Adam Frison..]:  [..4..]
+[..Felix Mertala..]:  [..4..]
+
+/******************************************************************************
+** B. Are there any known bugs / limitations?
+******************************************************************************/
+
+No known bugs or limitations.
+
+/******************************************************************************
+** C. Did you collaborate with any other students on this lab?
+**    If so, please write in what way you collaborated and with whom.
+**    Also include any resources (including the web) that you may
+**    may have used in creating your design.
+******************************************************************************/
+
+We did not collaborate with any students.
+
+/******************************************************************************
+** D. Describe any serious problems you encountered.                    
+******************************************************************************/
+
+Everything went smoothly :)
+
+/******************************************************************************
+** E. List any other comments here.
+**    Feel free to provide any feedback on how much you learned 
+**    from doing the assignment, and whether you enjoyed it.                                             
+******************************************************************************/
+
+
