@@ -1,0 +1,157 @@
+/******************************************************************************
+** DIT181 Datastrukturer och algoritmer, LP3 2021
+** Lab 1: Sorting, Complexity
+*******************************************************************************/
+
+Group members:
+- Carl Andersson
+- Felix Mertala
+- Adam Frison
+
+/******************************************************************************
+** Task: Figuring out the complexity
+**
+** 1. What is the complexity of running each of the following algorithms
+**    on each of the following kinds of inputs?
+**    You only have to decide between quadratic or faster than quadratic.
+******************************************************************************/
+
+
+Insertion.java on:
+
+- random inputs:      [Quadratic]
+- 95% sorted inputs:  [Quadratic]
+- sorted inputs:      [Faster than quadratic]
+
+Quick.java on:
+
+- random inputs:      [Faster than quadratic]
+- 95% sorted inputs:  [Faster than quadratic]
+- sorted inputs:      [Quadratic]
+
+Merge.java on:
+
+- random inputs:      [Faster than quadratic]
+- 95% sorted inputs:  [Faster than quadratic]
+- sorted inputs:      [Faster than quadratic]
+
+/******************************************************************************
+** 2. How did you check if an algorithm had quadratic complexity or not?
+******************************************************************************/
+
+From empirical tests we could get the average complexity. We recognized that if the size increased by 10 times
+and the time increase was quadratic we knew that it was of quadratic complexity.
+We focused on the relationship between 10 000 and 100 000 because small sizes are not reliable.
+
+/******************************************************************************
+** Task: Improving quicksort
+**
+** 3. Do the following changes affect the complexity of quicksort
+**    on any kind of input data? If so, what is it that changes?
+******************************************************************************/
+
+Shuffling the array first:
+
+Yes, sorted gets faster than quadratic. When the list is sorted each recursion will only sort one item.
+The cost is one N for each item and it will iterate N times. But when it is shuffled each recursion will sort
+(on average) more than one item and therefore have a better complexity.
+ And as we sort beforehand the average complexity will be the same for random, 95% sorted and fully sorted. 
+
+
+Median-of-three pivot selection:
+
+Yes, because it will give a better partition. It will also add a small cost of computing the median.
+To get a better partition but also computing the median will on average yield a better complexity.
+
+
+Insertion sort for small arrays:
+
+No, but it increases the time perfomance as we can see by performing the benchmark quicksort uses about double the time on smaller arrays.
+
+/******************************************************************************
+** 4. What is a good cutoff to use for insertion sort?
+**    Explain briefly how you came to this answer.
+**    Remember that you should try to find the answer in a systematic way.
+******************************************************************************/
+For lists with size up to 3000 a cutoff of 15 was faster than any other value we tested, we tested values in increments of 5 to find the fastest.
+For sorting lists of 100 000 size we found that using 80 as the cutoff value worked best on our testing system.
+
+
+15
+   10 |          0,000029 |
+   30 |          0,000121 |
+   100 |        0,000641 |
+   300 |        0,002598 |
+   1000 |      0,011487 |
+   3000 |      0,105635 |
+   10000 |    0,448450 |
+   30000 |    1,554040 |
+   100000 |  5,742050 |
+
+80
+ 10 |            0,000030 |
+ 30 |            0,000136 |
+ 100 |          0,000904 |
+ 300 |          0,003677 |
+ 1000 |        0,015384 |
+ 3000 |        0,092768 |
+ 10000 |      0,408595 |
+ 30000 |      1,471080 |
+ 100000 |    5,434050 |
+
+Results like these were consistent during testing on our system.
+
+/******************************************************************************
+** 5. Which combination of improvements gives the best performance?
+******************************************************************************/
+We choose to not shuffle the list beforehand because on our system the median of three performed better.
+
+A cut off value of 80 for insertion sort performed best on the system we tested on for big arrays but 15 was faster on arrays < 3000.
+
+So our chosen improvements were insertion sort with a cut off at 80 and median of three.
+
+/******************************************************************************
+** Appendix: General information
+**
+** A. Approximately how many hours did you spend on the assignment?
+******************************************************************************/
+
+[..Felix..]:  [..5..]
+[..Adam Frison..]:  [..4..]
+[..Carl Andreasson..]:  [..3..]
+
+
+/******************************************************************************
+** B. Are there any known bugs / limitations?
+******************************************************************************/
+
+A cut off point at 80 outperformed 15 which we got as an average value from the coursebook;
+this is probably a result of the system we tested on as we assumed 15 would be the best value.
+
+/******************************************************************************
+** C. Did you collaborate with any other students on this lab?
+**    If so, please write in what way you collaborated and with whom.
+**    Also include any resources (including the web) that you may
+**    may have used in creating your design.
+******************************************************************************/
+
+No, we did not collaborate with any other students for this assignment.
+
+/******************************************************************************
+** D. Describe any serious problems you encountered.
+******************************************************************************/
+
+The biggest problem was laziness in reading the documentation and instead of reading
+properly we tried to trial and error the tasks which may have had a negative impact on
+the time we took to finish.
+
+
+/******************************************************************************
+** E. List any other comments here.
+**    Feel free to provide any feedback on how much you learned
+**    from doing the assignment, and whether you enjoyed it.
+******************************************************************************/
+
+We felt this assignment was a nice way to learn about these algorithms and we enjoyed
+doing it. The tasks were nicely varied and did not get tedious at all as have been
+the case in some of the other courses.
